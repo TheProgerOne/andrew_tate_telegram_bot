@@ -1,0 +1,54 @@
+openapi: 3.1.0
+info:
+  title: Custom GPT API for Dating Advice
+  description: API для взаимодействия с кастомным GPT, помогающим в знакомстве с девушками.
+  version: 1.0.0
+servers:
+  - url: http://server-for-bot-gpt/
+    description: Основной сервер GPT API для советов по знакомству
+paths:
+  /getDatingAdvice:
+    post:
+      operationId: getDatingAdvice
+      summary: Предоставляет советы и рекомендации для знакомства с девушками.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                context:
+                  type: string
+                  description: Контекст или ситуация, в которой нужен совет.
+                message:
+                  type: string
+                  description: Сообщение от девушки, на которое нужно ответить.
+                maxLength:
+                  type: integer
+                  description: Максимальная длина генерируемого совета или ответа.
+                temperature:
+                  type: number
+                  format: float
+                  description: Значение температуры для генерации более творческих или осторожных ответов.
+      responses:
+        '200':
+          description: Успешно сгенерированный совет или ответ
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  advice:
+                    type: string
+                    description: Сгенерированный совет или ответ.
+        '400':
+          description: Ошибка в запросе
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: Описание ошибки.
